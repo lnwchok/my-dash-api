@@ -1,14 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', path='/img/favicon.ico') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,200;0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <title>Document</title>
-</head>
-<body>
-    <p class="p-6">Hekko</p>
-    <p>{{ hellp }}</p>
-</body>
+    <title>CalenDong</title>
+  </head>
+
+  <body class="bg-slate-200">
+    <header
+      class="max-w-6xl mx-auto py-[1rem] my-[1rem] flex justify-between border-solid border-2 border-sky-500"
+    >
+      <h1 class="mx-[1rem] font-bold text-xl">Your Work</h1>
+      <div class="mx-[1rem]">Status</div>
+    </header>
+    <main
+      class="max-w-6xl p-[1rem] mx-auto border-solid border-2 border-sky-500"
+    >
+      <div class="flex gap-[3rem]">
+        <div id="mainCalendar" class="w-2/5">
+            Calendar Placing...
+        </div>
+        <div id="detailCalendar" class="w-3/5">
+            Detail...
+        </div>
+      </div>
+    </main>
+  </body>
 </html>

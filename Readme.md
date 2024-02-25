@@ -2,7 +2,9 @@
 This calendar was ideas to combined FastAPI, HTMX and TailWind CSS. 
 
 ## Python Requirement
-pip install fastapi, uvicorn[standard]
+```
+pip install fastapi "uvicorn[standard]" jinja2
+```
 
 ## CDN for HTMX
 ```
@@ -13,6 +15,12 @@ pip install fastapi, uvicorn[standard]
 ```
 <script src="https://cdn.tailwindcss.com"></script>
 ```
+
+## Run CLI
+```
+python3 -m uvicorn main:app --reload
+```
+
 
 Hope I enjoy!!!
 Sitthichok
