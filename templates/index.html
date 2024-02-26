@@ -14,28 +14,67 @@
       href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,200;0,400;0,600;1,400&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='/css/style.css') }}"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <title>CalenDong</title>
   </head>
 
-  <body class="bg-slate-200">
+  <body class="bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-100">
     <header
       class="max-w-6xl mx-auto py-[1rem] my-[1rem] flex justify-between border-solid border-2 border-sky-500"
     >
-      <h1 class="mx-[1rem] font-bold text-xl">Your Work</h1>
-      <div class="mx-[1rem]">Status</div>
+      <div class="mx-[1rem] flex items-center">
+        <h1 class="font-bold text-xl">Your Work</h1>
+        <span class="mx-[3rem]"><a class="primary" href="/calendar">Today</a></span>
+      </div>
+      <!-- <div class="mx-[1rem]" hx-get="/api/status" hx-swap="innerHTML"></div> -->
+      <div class="mx-[1rem]">{{ status }}</div>
     </header>
     <main
       class="max-w-6xl p-[1rem] mx-auto border-solid border-2 border-sky-500"
     >
       <div class="flex gap-[3rem]">
-        <div id="mainCalendar" class="w-2/5">
-            Calendar Placing...
+        <!-- {% include 'maincalendar.html' %} -->
+        <div id="mainCalendar" class="w-3/5 text-center">
+          <!-- <span class="font-bold text-xl">{{ calendar.year }}</span> -->
+          <div class="flex justify-between my-[1rem]">
+            <span class="px-[2rem]"><a href="/calendar/{{ calendar.year if (calendar.month-1) > 0 else calendar.year-1 }}/{{ calendar.month-1 if (calendar.month-1) > 0 else 12}}">&lt;&lt;</a></span>
+            <span  class="font-bold text-xl"
+              >{{ ['January', 'February', 'March', 'April', 'May', 'June',
+              'July', 'August', 'September', 'October', 'November',
+              'December'][calendar.month-1] }}  --  {{ calendar.year }}</span
+            >
+            <span class="px-[2rem]"><a href="/calendar/{{ calendar.year if (calendar.month+1) <= 12 else calendar.year+1 }}/{{ calendar.month+1 if (calendar.month+1) <= 12 else 1}}">&gt;&gt;</a></span>
+          </div>
+          <div class="grid grid-cols-7">
+            {% for name in ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'] %}
+            <div class="min-h-[2rem] day-block">
+              <span class="font-bold">{{ name }}</span>
+            </div>
+            {% endfor %}
+
+            <!-- Blank Days -->
+            {% for b in range(calendar.firstDay) %}
+            <div class="min-h-[5rem] day-block">&nbsp;</div>
+            {% endfor %}
+
+            <!-- Calendar -->
+            {% for c in range(calendar.totalDay) %}
+            <div class="min-h-[5rem] day-block">
+              <div class="day-overlay">
+                <span class="day-id">{{ c+1 }}</span>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
         </div>
-        <div id="detailCalendar" class="w-3/5">
-            Detail...
+        <div id="detailCalendar" class="w-2/5">
+          <p>Detail...</p>
+          <p>{{ calendar.currentDay }}</p>
         </div>
       </div>
     </main>
